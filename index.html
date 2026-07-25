@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Tatz By Fatz | Custom Tattoo Artist — Baltimore, MD</title>
 <meta name="description" content="Tatz By Fatz — custom black &amp; grey, Chicano, fine line and lettering tattoos in Baltimore, MD. Your vision, my art. Let's bring it to life." />
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🖤</text></svg>" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='%2308080a'/%3E%3Cg stroke='%23e8222d' stroke-width='11' stroke-linecap='round' stroke-linejoin='round' fill='none'%3E%3Cg transform='rotate(-30 100 130)'%3E%3Cline x1='100' y1='198' x2='100' y2='70'/%3E%3Crect x='88' y='64' width='24' height='30' rx='5'/%3E%3Ccircle cx='100' cy='45' r='18'/%3E%3Ccircle cx='100' cy='18' r='12'/%3E%3C/g%3E%3Cg transform='rotate(30 100 130)'%3E%3Cline x1='100' y1='198' x2='100' y2='70'/%3E%3Crect x='88' y='64' width='24' height='30' rx='5'/%3E%3Ccircle cx='100' cy='45' r='18'/%3E%3Ccircle cx='100' cy='18' r='12'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E" />
 <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
@@ -13,11 +13,25 @@
 <!-- Preloader -->
 <div id="preloader">
   <div class="preloader-mark">
-    <svg viewBox="0 0 200 200" fill="none">
-      <path class="draw-line" d="M40 60 L100 20 L160 60 L160 140 L100 180 L40 140 Z" />
-      <path class="draw-line" d="M70 100 L95 130 L135 75" style="animation-delay:0.4s" />
+    <svg viewBox="0 0 200 220" fill="none">
+      <g stroke-linecap="round" stroke-linejoin="round">
+        <g class="draw-line" transform="rotate(-30 100 130)">
+          <line x1="100" y1="198" x2="100" y2="70"/>
+          <rect x="88" y="64" width="24" height="30" rx="5"/>
+          <circle cx="100" cy="45" r="18"/>
+          <circle cx="100" cy="18" r="12"/>
+          <rect x="88" y="-4" width="24" height="14" rx="4"/>
+        </g>
+        <g class="draw-line" style="animation-delay:.25s" transform="rotate(30 100 130)">
+          <line x1="100" y1="198" x2="100" y2="70"/>
+          <rect x="88" y="64" width="24" height="30" rx="5"/>
+          <circle cx="100" cy="45" r="18"/>
+          <circle cx="100" cy="18" r="12"/>
+          <rect x="88" y="-4" width="24" height="14" rx="4"/>
+        </g>
+      </g>
     </svg>
-    <div class="preloader-word">TATZ&nbsp;BY&nbsp;FATZ</div>
+    <div class="preloader-word">TATZ BY<span class="script">Fatz</span></div>
   </div>
 </div>
 
@@ -25,10 +39,21 @@
 <nav id="site-nav">
   <div class="container nav-inner">
     <a href="#hero" class="brand">
-      <svg class="brand-mark" viewBox="0 0 100 100" fill="none">
-        <circle cx="50" cy="50" r="48" stroke="#c81c26" stroke-width="2"/>
-        <path d="M28 40 L50 22 L72 40 L72 68 L50 84 L28 68 Z" stroke="#d4af37" stroke-width="2" fill="none"/>
-        <path d="M40 52 L48 62 L64 42" stroke="#f5f3ee" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      <svg class="brand-mark" viewBox="0 0 200 200" fill="none">
+        <g stroke="#e8222d" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" transform="rotate(-30 100 130)">
+          <line x1="100" y1="198" x2="100" y2="70"/>
+          <rect x="88" y="64" width="24" height="30" rx="5"/>
+          <circle cx="100" cy="45" r="18"/>
+          <circle cx="100" cy="18" r="12"/>
+          <rect x="88" y="-4" width="24" height="14" rx="4"/>
+        </g>
+        <g stroke="#e8222d" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" transform="rotate(30 100 130)">
+          <line x1="100" y1="198" x2="100" y2="70"/>
+          <rect x="88" y="64" width="24" height="30" rx="5"/>
+          <circle cx="100" cy="45" r="18"/>
+          <circle cx="100" cy="18" r="12"/>
+          <rect x="88" y="-4" width="24" height="14" rx="4"/>
+        </g>
       </svg>
       <span class="brand-text">TATZ BY<span class="script">Fatz</span></span>
     </a>
@@ -112,7 +137,7 @@
         <img src="assets/brand/portrait-illustration.jpg" alt="Stylized portrait of tattoo artist Fatz holding a tattoo machine" loading="lazy" />
       </div>
       <div class="about-media-float">
-        <img src="assets/portfolio/loyalty-script-forearm.jpg" alt="Fatz tattooing a loyalty script piece" loading="lazy" />
+        <img src="assets/portfolio/loyalty-script-forearm-masked.jpg" alt="Fatz tattooing a loyalty script piece" loading="lazy" />
       </div>
     </div>
 
@@ -215,8 +240,8 @@
         <div class="p-overlay"><span class="p-name">So Calm</span><span class="p-tag">Fine Line</span></div>
       </div>
 
-      <div class="p-item reveal reveal-delay-1" data-type="image" data-caption="Loyalty — Custom Script" data-src="assets/portfolio/loyalty-script-forearm.jpg">
-        <img src="assets/portfolio/loyalty-script-forearm.jpg" alt="Loyalty custom script lettering forearm tattoo" loading="lazy" />
+      <div class="p-item reveal reveal-delay-1" data-type="image" data-caption="Loyalty — Custom Script" data-src="assets/portfolio/loyalty-script-forearm-masked.jpg">
+        <img src="assets/portfolio/loyalty-script-forearm-masked.jpg" alt="Loyalty custom script lettering forearm tattoo" loading="lazy" />
         <div class="p-overlay"><span class="p-name">Loyalty</span><span class="p-tag">Lettering</span></div>
       </div>
 
