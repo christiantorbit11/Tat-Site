@@ -548,7 +548,7 @@ section { position: relative; padding: 110px 0; }
 
 /* ---------- Footer ---------- */
 footer { background: var(--black-soft); border-top: 1px solid var(--line); padding: 70px 0 30px; }
-.footer-grid { display: grid; grid-template-columns: 1.4fr 0.8fr 0.8fr 1fr; gap: 40px; margin-bottom: 60px; }
+.footer-grid { display: grid; grid-template-columns: 1.4fr 0.9fr 1fr; gap: 40px; margin-bottom: 60px; }
 .footer-brand .brand-text { font-size: 1.8rem; }
 .footer-brand p { color: var(--off-white); margin-top: 16px; max-width: 300px; font-size: 0.92rem; }
 .footer-social { display: flex; gap: 12px; margin-top: 22px; }
@@ -603,7 +603,7 @@ footer { background: var(--black-soft); border-top: 1px solid var(--line); paddi
    Responsive
    ========================================================================== */
 @media (max-width: 980px) {
-  .about-grid, .booking-wrap, .process-wrap { grid-template-columns: 1fr; }
+  #about .about-grid, .booking-wrap, .process-wrap { grid-template-columns: 1fr; }
   .about-media { margin-bottom: 40px; max-width: 420px; }
   .footer-grid { grid-template-columns: 1fr 1fr; }
   .services-grid { grid-template-columns: repeat(2, 1fr); }
@@ -624,8 +624,16 @@ footer { background: var(--black-soft); border-top: 1px solid var(--line); paddi
   .about-stats { grid-template-columns: 1fr 1fr; }
   .footer-grid { grid-template-columns: 1fr; gap: 34px; }
   .footer-bottom { flex-direction: column; align-items: flex-start; }
-  .about-media-float { width: 52%; right: -14px; bottom: -24px; }
-  .about-badge { width: 84px; height: 84px; font-size: 0.7rem; top: -14px; left: -14px; }
+  .about-media { max-width: none; }
+  .about-media-float { width: 62%; right: -10px; bottom: -28px; border-width: 4px; }
+  .about-badge { width: 104px; height: 104px; top: -16px; left: -16px; }
+  .about-badge .core .small { font-size: 0.68rem; }
+  .about-badge .core .star { font-size: 1.3rem; }
+  .hero-media::after {
+    background: linear-gradient(180deg, rgba(8,8,10,0.55) 0%, rgba(8,8,10,0.5) 22%, rgba(8,8,10,0.8) 55%, rgba(8,8,10,0.97) 100%);
+  }
+  .hero-tagline, .hero-meta, .hero-eyebrow { text-shadow: 0 2px 14px rgba(8,8,10,0.9); }
+  .hero-chip { background: rgba(8,8,10,0.55); border-color: rgba(245,243,238,0.4); }
   .portfolio-grid { columns: 2 140px; column-gap: 10px; }
   .p-item { margin-bottom: 10px; }
   .p-item .p-overlay { padding: 12px; opacity: 1; background: linear-gradient(180deg, transparent 55%, rgba(8,8,10,0.94) 100%); }
