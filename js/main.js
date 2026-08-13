@@ -141,24 +141,13 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   if (bookingIframe) {
-    bookingIframe.addEventListener('load', () => {
-      // Many booking platforms send X-Frame-Options/CSP that silently blocks the embed:
-      // the browser still fires `load`, but the frame stays on about:blank. If we can
-      // read contentDocument and it's empty, the embed was blocked; if reading it throws
-      // (cross-origin), the frame actually navigated to venue.ink and loaded for real.
-      setTimeout(() => {
-        try {
-          const doc = bookingIframe.contentDocument;
-          const emptyBody = !doc || !doc.body || doc.body.innerHTML.trim().length < 50;
-          emptyBody ? bookingFailed() : bookingLoaded();
-        } catch (e) {
-          bookingLoaded();
-        }
-      }, 500);
-    });
+    // Trust the browser's own load event — cross-origin embeds (like Google Calendar)
+    // can't be reliably probed from here (contentDocument access throws by design for
+    // cross-origin frames, and that used to be misread as both "success" and "failure"
+    // depending on timing). If it never loads at all, fall back after a generous wait.
+    bookingIframe.addEventListener('load', bookingLoaded);
     bookingIframe.addEventListener('error', bookingFailed);
-    // Ultimate fallback if neither load nor error fires within 9s.
-    setTimeout(() => { if (!bookingResolved) bookingFailed(); }, 9000);
+    setTimeout(() => { if (!bookingResolved) bookingFailed(); }, 15000);
   }
 
   /* Portfolio grid: masonry-safe columns already handled in CSS via `columns` */
