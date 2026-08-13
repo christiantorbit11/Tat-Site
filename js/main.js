@@ -12,6 +12,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const yearEl = document.getElementById('year');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
+  /* Hero "Booking [Month] Now" — always reflects the current month */
+  const monthEl = document.getElementById('currentMonth');
+  if (monthEl) monthEl.textContent = new Date().toLocaleString('en-US', { month: 'long' }) + ' Now';
+
   /* Sticky nav */
   const nav = document.getElementById('site-nav');
   const onScroll = () => {

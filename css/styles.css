@@ -267,7 +267,14 @@ section { position: relative; padding: 110px 0; }
   opacity: 0; animation: heroFade 1s ease 0.5s forwards;
 }
 .hero-title .line2 { color: transparent; -webkit-text-stroke: 1.5px var(--white); display: block; }
-.hero-title .script-swash { display: block; font-family: var(--font-script); color: var(--red-bright); font-size: 0.42em; -webkit-text-stroke: 0; margin-top: -0.15em; text-transform: none; }
+.hero-title .script-swash {
+  display: block; width: fit-content;
+  font-family: var(--font-script); color: var(--red-bright); font-size: 0.42em;
+  -webkit-text-stroke: 0; margin-top: 6px; text-transform: none;
+  background: rgba(8,8,10,0.6); backdrop-filter: blur(6px);
+  padding: 0.15em 0.5em; border-radius: 30px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.35);
+}
 
 .hero-tagline {
   margin-top: 22px; font-size: clamp(1rem, 2vw, 1.25rem); color: var(--off-white);
