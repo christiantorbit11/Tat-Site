@@ -140,6 +140,9 @@ section { position: relative; padding: 110px 0; }
 }
 .btn-ghost:hover { border-color: var(--gold-soft); color: var(--gold-soft); transform: translateY(-3px); }
 
+.hero-actions .btn-ghost { background: var(--black); border-color: rgba(245, 243, 238, 0.35); }
+.hero-actions .btn-ghost:hover { background: var(--black-soft); }
+
 .btn-gold {
   background: linear-gradient(135deg, var(--gold-soft), var(--gold));
   color: var(--black);
