@@ -357,7 +357,7 @@
     <div class="section-head reveal">
       <span class="eyebrow">Let's Work</span>
       <h2 class="section-title">Book Your <span class="accent">Session.</span></h2>
-      <p class="section-lede">Pick a time directly below, or reach out by phone, text or email — every appointment needs a $50 non-refundable deposit to lock in your spot.</p>
+      <p class="section-lede">Answer a few quick questions and send it straight to Fatz, or reach out by phone, text or email directly — every appointment needs a $50 non-refundable deposit to lock in your spot.</p>
     </div>
 
     <div class="booking-wrap">
@@ -397,27 +397,81 @@
 
       <div class="booking-frame-shell reveal" id="bookingShell">
         <div class="booking-frame-head">
-          <span>Live Availability</span>
-          <a href="https://calendar.google.com/calendar/embed?src=e7948ae7fa1488fa6bae549eb6e493db3281f3c7257120653e692919dd168361%40group.calendar.google.com&ctz=America%2FNew_York" target="_blank" rel="noopener noreferrer">Open in new tab ↗</a>
+          <span><span class="live-dot"></span> Start Your Consult</span>
+          <span class="consult-step-counter" id="consultStepCounter">Step 1 of 4</span>
         </div>
-        <div class="booking-loading" id="bookingLoading">
-          <div class="spinner"></div>
-          <p>Loading live calendar…</p>
-        </div>
-        <div class="booking-fallback hidden" id="bookingFallback">
-          <h4>Calendar can't be shown here</h4>
-          <p>Open the live calendar in a new tab, or use the direct contact card on this page.</p>
-          <div style="display:flex; gap:14px; flex-wrap:wrap; justify-content:center; margin-top:10px;">
-            <a href="https://calendar.google.com/calendar/embed?src=e7948ae7fa1488fa6bae549eb6e493db3281f3c7257120653e692919dd168361%40group.calendar.google.com&ctz=America%2FNew_York" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Open Live Calendar ↗</a>
+
+        <div class="consult-wizard" id="consultWizard">
+          <div class="consult-progress"><div class="consult-progress-fill" id="consultProgressFill"></div></div>
+
+          <div class="consult-steps" id="consultSteps">
+
+            <div class="consult-step active" data-step="1">
+              <span class="consult-kicker">01 — Style</span>
+              <h4 class="consult-q">What style are you thinking?</h4>
+              <div class="consult-options">
+                <button type="button" class="consult-chip" data-field="style" data-value="Black &amp; Grey">Black &amp; Grey</button>
+                <button type="button" class="consult-chip" data-field="style" data-value="Chicano">Chicano</button>
+                <button type="button" class="consult-chip" data-field="style" data-value="Fine Line">Fine Line</button>
+                <button type="button" class="consult-chip" data-field="style" data-value="Lettering">Lettering</button>
+                <button type="button" class="consult-chip" data-field="style" data-value="Not Sure Yet">Not Sure Yet</button>
+              </div>
+            </div>
+
+            <div class="consult-step" data-step="2">
+              <span class="consult-kicker">02 — Placement</span>
+              <h4 class="consult-q">Where's it going?</h4>
+              <div class="consult-options">
+                <button type="button" class="consult-chip" data-field="placement" data-value="Arm">Arm</button>
+                <button type="button" class="consult-chip" data-field="placement" data-value="Leg">Leg</button>
+                <button type="button" class="consult-chip" data-field="placement" data-value="Back / Chest">Back / Chest</button>
+                <button type="button" class="consult-chip" data-field="placement" data-value="Hand / Neck">Hand / Neck</button>
+                <button type="button" class="consult-chip" data-field="placement" data-value="Other">Other</button>
+              </div>
+            </div>
+
+            <div class="consult-step" data-step="3">
+              <span class="consult-kicker">03 — Size</span>
+              <h4 class="consult-q">Roughly what size?</h4>
+              <div class="consult-options">
+                <button type="button" class="consult-chip" data-field="size" data-value="Small (palm-sized)">Small <em>(palm-sized)</em></button>
+                <button type="button" class="consult-chip" data-field="size" data-value="Medium (hand-span)">Medium <em>(hand-span)</em></button>
+                <button type="button" class="consult-chip" data-field="size" data-value="Large (half sleeve+)">Large <em>(half sleeve+)</em></button>
+                <button type="button" class="consult-chip" data-field="size" data-value="Full Sleeve / Large Piece">Full Sleeve+</button>
+              </div>
+            </div>
+
+            <div class="consult-step" data-step="4">
+              <span class="consult-kicker">04 — You</span>
+              <h4 class="consult-q">Last thing — who am I talking to?</h4>
+              <input type="text" id="consultName" class="consult-input" placeholder="Your name" autocomplete="name" />
+              <textarea id="consultNotes" class="consult-textarea" placeholder="Anything else Fatz should know? (optional)" rows="3"></textarea>
+              <button type="button" class="btn btn-primary btn-block consult-continue" id="consultContinue">Review &amp; Send</button>
+            </div>
+
+            <div class="consult-step" data-step="5">
+              <span class="consult-kicker">Ready</span>
+              <h4 class="consult-q">You're all set<span id="consultNameEcho"></span></h4>
+              <div class="consult-summary" id="consultSummary"></div>
+              <div class="consult-send-actions">
+                <a href="#" id="consultTextBtn" class="btn btn-primary btn-block">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                  Text This to Fatz
+                </a>
+                <a href="#" id="consultEmailBtn" class="btn btn-ghost btn-block">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 6 12 13 2 6"/><path d="M2 6h20v12H2z"/></svg>
+                  Email This to Fatz
+                </a>
+              </div>
+              <button type="button" class="consult-restart" id="consultRestart">Start over</button>
+            </div>
+
           </div>
+
+          <button type="button" class="consult-back" id="consultBack" aria-label="Go back">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
         </div>
-        <iframe
-          id="bookingIframe"
-          src="https://calendar.google.com/calendar/embed?src=e7948ae7fa1488fa6bae549eb6e493db3281f3c7257120653e692919dd168361%40group.calendar.google.com&ctz=America%2FNew_York"
-          title="Tatz By Fatz live availability calendar"
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
-        ></iframe>
       </div>
     </div>
   </div>

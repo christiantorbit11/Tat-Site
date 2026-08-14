@@ -125,33 +125,100 @@ document.addEventListener('DOMContentLoaded', () => {
   lightbox && lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
 
-  /* Booking iframe: loading state + graceful fallback if the embed fails or times out */
-  const bookingIframe = document.getElementById('bookingIframe');
-  const bookingLoading = document.getElementById('bookingLoading');
-  const bookingFallback = document.getElementById('bookingFallback');
-  let bookingResolved = false;
+  /* Start Your Consult — interactive booking wizard (replaces the old calendar embed) */
+  const wizard = document.getElementById('consultWizard');
+  if (wizard) {
+    const steps = Array.from(wizard.querySelectorAll('.consult-step'));
+    const progressFill = document.getElementById('consultProgressFill');
+    const stepCounter = document.getElementById('consultStepCounter');
+    const backBtn = document.getElementById('consultBack');
+    const totalInputSteps = 4; // step 5 is the summary, not counted in "Step X of 4"
+    const state = { style: '', placement: '', size: '', name: '', notes: '' };
+    let current = 1;
 
-  function bookingLoaded() {
-    if (bookingResolved) return;
-    bookingResolved = true;
-    bookingLoading && bookingLoading.classList.add('hidden');
-  }
-  function bookingFailed() {
-    if (bookingResolved) return;
-    bookingResolved = true;
-    bookingLoading && bookingLoading.classList.add('hidden');
-    bookingFallback && bookingFallback.classList.remove('hidden');
-    if (bookingIframe) bookingIframe.style.display = 'none';
-  }
+    function showStep(n) {
+      current = n;
+      steps.forEach(s => s.classList.toggle('active', Number(s.dataset.step) === n));
+      const pct = Math.min(n, totalInputSteps) / totalInputSteps * 100;
+      if (progressFill) progressFill.style.width = pct + '%';
+      if (stepCounter) stepCounter.textContent = n <= totalInputSteps ? `Step ${n} of ${totalInputSteps}` : 'All set';
+      if (backBtn) backBtn.classList.toggle('show', n > 1);
+      if (n === 5) buildSummary();
+    }
 
-  if (bookingIframe) {
-    // Trust the browser's own load event — cross-origin embeds (like Google Calendar)
-    // can't be reliably probed from here (contentDocument access throws by design for
-    // cross-origin frames, and that used to be misread as both "success" and "failure"
-    // depending on timing). If it never loads at all, fall back after a generous wait.
-    bookingIframe.addEventListener('load', bookingLoaded);
-    bookingIframe.addEventListener('error', bookingFailed);
-    setTimeout(() => { if (!bookingResolved) bookingFailed(); }, 15000);
+    wizard.querySelectorAll('.consult-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        const field = chip.dataset.field;
+        const value = chip.dataset.value;
+        state[field] = value;
+        chip.parentElement.querySelectorAll('.consult-chip').forEach(c => c.classList.remove('selected'));
+        chip.classList.add('selected');
+        setTimeout(() => showStep(current + 1), 320);
+      });
+    });
+
+    const continueBtn = document.getElementById('consultContinue');
+    continueBtn && continueBtn.addEventListener('click', () => {
+      state.name = document.getElementById('consultName').value.trim();
+      state.notes = document.getElementById('consultNotes').value.trim();
+      showStep(5);
+    });
+
+    backBtn && backBtn.addEventListener('click', () => { if (current > 1) showStep(current - 1); });
+
+    function buildSummary() {
+      const summaryEl = document.getElementById('consultSummary');
+      const nameEcho = document.getElementById('consultNameEcho');
+      if (nameEcho) nameEcho.textContent = state.name ? `, ${state.name}` : '';
+
+      const rows = [
+        ['Style', state.style],
+        ['Placement', state.placement],
+        ['Size', state.size],
+      ];
+      if (state.notes) rows.push(['Notes', state.notes]);
+      if (summaryEl) {
+        summaryEl.innerHTML = rows.map(([label, val]) =>
+          `<div class="consult-summary-row"><span>${label}</span><b>${escapeHtml(val)}</b></div>`
+        ).join('');
+      }
+
+      const greeting = state.name ? `Hey Fatz, I'm ${state.name}!` : 'Hey Fatz!';
+      const lines = [
+        greeting,
+        "I'm interested in booking a tattoo session:",
+        `Style: ${state.style}`,
+        `Placement: ${state.placement}`,
+        `Size: ${state.size}`,
+      ];
+      if (state.notes) lines.push(`Notes: ${state.notes}`);
+      lines.push('(sent from tatzbyfatz.com)');
+      const message = lines.join('\n');
+
+      const textBtn = document.getElementById('consultTextBtn');
+      const emailBtn = document.getElementById('consultEmailBtn');
+      if (textBtn) textBtn.href = `sms:+14434690151?body=${encodeURIComponent(message)}`;
+      if (emailBtn) emailBtn.href = `mailto:cjacobs0115@gmail.com?subject=${encodeURIComponent('New tattoo consult request')}&body=${encodeURIComponent(message)}`;
+    }
+
+    function escapeHtml(str) {
+      const div = document.createElement('div');
+      div.textContent = str;
+      return div.innerHTML;
+    }
+
+    const restartBtn = document.getElementById('consultRestart');
+    restartBtn && restartBtn.addEventListener('click', () => {
+      Object.keys(state).forEach(k => state[k] = '');
+      wizard.querySelectorAll('.consult-chip.selected').forEach(c => c.classList.remove('selected'));
+      const nameInput = document.getElementById('consultName');
+      const notesInput = document.getElementById('consultNotes');
+      if (nameInput) nameInput.value = '';
+      if (notesInput) notesInput.value = '';
+      showStep(1);
+    });
+
+    showStep(1);
   }
 
   /* Portfolio grid: masonry-safe columns already handled in CSS via `columns` */
